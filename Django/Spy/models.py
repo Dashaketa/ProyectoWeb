@@ -7,6 +7,8 @@ class Usuario(models.Model):
     correo_electronico = models.EmailField(unique=True)
     telefono = models.CharField(max_length=9)
     password = models.CharField(max_length=128)
+    es_administrador = models.BooleanField(default=False)  # Campo para marcar si el usuario es administrador
+
 
     def __str__(self):
         return f"{self.nombre} {self.apellido}"

@@ -1,6 +1,5 @@
-<!-- Navbar -->
 {% load static %}
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark  ">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
       <a class="navbar-brand" href="#"><img src="{% static "img/logoPagina/logo-verde.png" %}" width="200" height="100" alt=""></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -9,11 +8,11 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
 
-        <ul class="navbar-nav ms-auto  ">
+        <ul class="navbar-nav ms-auto">
           <li class="nav-item">
             <a class="nav-link" href="{% url 'home' %}">Inicio</a>
           </li>
-          <li class="nav-item">   
+          <li class="nav-item">
             <a class="nav-link" href="{% url 'productos' %}">Productos</a>
           </li>
           <li class="nav-item">
@@ -22,11 +21,18 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="cuentaDropdown" role="button" data-bs-toggle="dropdown"
               aria-expanded="false">
-              <img src="{%static "img/logo/person.svg"%}" width="24" height="24" alt="">
+              <img src="{% static "img/logo/person.svg" %}" width="24" height="24" alt="">
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="cuentaDropdown">
-              <li><a class="dropdown-item" href="{% url 'inicioSesion' %}">Iniciar Sesión</a></li>
-              <li><a class="dropdown-item" href="{% url 'registro' %}">Registrarse</a></li>
+              {% if request.user.is_authenticated %}
+                <li><a class="dropdown-item" href="{% url 'logout' %}">Cerrar Sesión</a></li>
+                {% if request.user.es_administrador %}
+                  <li><a class="dropdown-item" href="{% url 'listar_usuarios' %}">Administrar</a></li>
+                {% endif %}
+              {% else %}
+                <li><a class="dropdown-item" href="{% url 'inicioSesion' %}">Iniciar Sesión</a></li>
+                <li><a class="dropdown-item" href="{% url 'registro' %}">Registrarse</a></li>
+              {% endif %}
             </ul>
           </li>
           <!-- Botón del carrito en el Navbar -->
@@ -34,7 +40,7 @@
             <li class="nav-item">
               <button class="nav-link btn btn-link" type="button" data-bs-toggle="offcanvas"
                 data-bs-target="#carritoOffcanvas" aria-controls="carritoOffcanvas">
-                <img src="{%static "img/logo/cart4.svg"%}" alt="Carrito" width="24" height="24">
+                <img src="{% static "img/logo/cart4.svg" %}" alt="Carrito" width="24" height="24">
               </button>
             </li>
           </ul>
@@ -43,7 +49,7 @@
   </nav>
 
   <!-- Offcanvas del Carrito -->
-  <div class="offcanvas offcanvas-end navbar-dark bg-dark " tabindex="-1" id="carritoOffcanvas"
+  <div class="offcanvas offcanvas-end navbar-dark bg-dark" tabindex="-1" id="carritoOffcanvas"
     aria-labelledby="carritoOffcanvasLabel">
     <div class="offcanvas-header">
       <h4 class="offcanvas-title text-light" id="carritoOffcanvasLabel">Tu Carrito</h4>
@@ -106,9 +112,6 @@
         </div>
       </div>
     </div>
-    
-
-
 
         <div class="row mt-3">
           <div class="col-md-12 mx-auto text-end">

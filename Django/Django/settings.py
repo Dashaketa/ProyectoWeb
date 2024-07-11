@@ -135,3 +135,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'usuarios.CustomUser'
+
+LOGIN_URL = 'inicioSesion'  # Nombre de la URL para la vista de inicio de sesión
+LOGIN_REDIRECT_URL = 'home'  # URL a la que se redirige después de iniciar sesión
+
